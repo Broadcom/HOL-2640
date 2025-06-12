@@ -1,6 +1,6 @@
 
 * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - *
-*                                     HOL-2540 POD                              *
+*                                     HOL-2640 POD                              *
 * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - *
 
 HOL-2540-01 NSX Fundamentals
@@ -14,7 +14,7 @@ HOL-2540-03 VMware HCX - Getting Started With Cross-Cloud Mobility
 
 
 
-Account names and passwords for this lab. 
+Account names for this lab. 
 
 Credentials for all vCenter Operations Manager Instances:
 User name: admin
