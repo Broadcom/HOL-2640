@@ -34,7 +34,7 @@ if lsf.labcheck == False:
 
 if not lsf.labcheck:
     try:
-        r = subprocess.run(["/usr/bin/sshpass -p 'VMware123!VMware123!' ssh -o StrictHostKeyChecking=no admin@nsx-mgmt.vcf2.sddc.lab 'clear user HOLFinance-ProjectAdmin password-expiration'"], 
+        r = subprocess.run(["/usr/bin/sshpass -p '*****' ssh -o StrictHostKeyChecking=no admin@nsx-mgmt.vcf2.sddc.lab 'clear user HOLFinance-ProjectAdmin password-expiration'"], 
             capture_output=True, text=True, check=True, shell=True)
         lsf.write_output(r)
     except Exception as e:
@@ -46,7 +46,7 @@ if not lsf.labcheck:
             pass  
         lsf.write_output('NSX HOLFinance-ProjectAdmin password change failed')  
     try:
-        r = subprocess.run(["/usr/bin/sshpass -p 'VMware123!VMware123!' ssh -o StrictHostKeyChecking=no admin@nsx-mgmt.vcf2.sddc.lab 'clear user RetailApp-VIAdmin password-expiration'"], 
+        r = subprocess.run(["/usr/bin/sshpass -p '*****' ssh -o StrictHostKeyChecking=no admin@nsx-mgmt.vcf2.sddc.lab 'clear user RetailApp-VIAdmin password-expiration'"], 
             capture_output=True, text=True, check=True, shell=True)
         lsf.write_output(r)
     except Exception as e:
