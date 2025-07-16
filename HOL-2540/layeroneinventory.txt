@@ -1,0 +1,22 @@
+# edit as needed. set for LMC so change "main console" to windows if needed
+esxi-10-vcf, otherGuest64, 10.0.0.110
+esxi-11-vcf, otherGuest64, 10.0.0.111
+esxi-12-vcf, otherGuest64, 10.0.0.112
+esxi-1-vcf, otherGuest64, 10.0.0.101
+esxi-2-vcf, otherGuest64, 10.0.0.102
+esxi-3-vcf, otherGuest64, 10.0.0.103
+esxi-4-vcf, otherGuest64, 10.0.0.104
+esxi-10-vcf2, otherGuest64, 10.0.20.110
+esxi-11-vcf2, otherGuest64, 10.0.20.111
+esxi-12-vcf2, otherGuest64, 10.0.20.112
+esxi-1-vcf2, otherGuest64, 10.0.20.101
+esxi-2-vcf2, otherGuest64, 10.0.20.102
+esxi-3-vcf2, otherGuest64, 10.0.20.103
+esxi-4-vcf2, otherGuest64, 10.0.20.104
+CB-01a, VMware Photon OS (64-bit), 10.0.0.221
+CB-01b, VMware Photon OS (64-bit), 10.0.20.221
+#main console, Ubuntu Linux (64-bit), 10.0.0.10
+MainConsole, Microsoft Windows Server 2019 (64-bit), 10.0.0.2
+ManagerVCF, Ubuntu Linux (64-bit), 10.0.0.11
+vpodrouterhol, Debian GNU/Linux 10 (64 bit), 192.168.0.2
+

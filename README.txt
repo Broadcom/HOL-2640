@@ -1,26 +1,20 @@
-THIS IS AN EXAMPLE. REPLACE THIS WITH YOUR OWN README.txt using the pattern below.
-
-This is customer facing so please make it look professional. Thanks.
-
-This file can be updated and will be copied to the console desktop at startup.
-
-NOTE: this file is public so NEVER include passwords.
 
 * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - *
-*                       HOL-26XX Title of Your Lab                              *
+*                                     HOL-2640 POD                              *
 * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - *
 
-Primary benefits of your lab.
+HOL-2540-01 NSX Fundamentals
+	This lab focuses on getting started with the NSX Networking platform within VMware Cloud Foundation (VCF). 
 
-More detail about your lab: Products included.
+HOL 2540-02 NSX Advanced Networking
+	This lab focuses on advanced features within NSX Networking.  We review configuring advanced Edge and BGP deployments along with NSX VPN.  We have a module that focuses on configuring multi tenancy with NSX Projects and Virtual Private Clouds (VPC). 
 
-Additional notes and "interesting" facts about your lab. (pre-release code, simulated data, etc.)
+HOL-2540-03 VMware HCX - Getting Started With Cross-Cloud Mobility
+	Using this Dual Site VCF Pod we will show how to migrate workloads using various HCX methods.
 
-Please use the VMware Lab Platform "Send Text" control and copy/paste from Lab Manual
 
-Please record account names for this lab. All acccounts use the standard Hands-on Labs password.
 
-=== Module 1 ===
+Account names for this lab. 
 
 Credentials for all vCenter Operations Manager Instances:
 User name: admin
@@ -31,6 +25,8 @@ User name: root
 For the vSphere Client, use:
 User name: administrator@vsphere.local
 
-=== Module 2 ===
+For all NSX applinces, use:
+User name: admin
 
-big long command line that nobody wants to type
+For all 3 tier app servers, use:
+User name: root
