@@ -5,7 +5,7 @@
 $appliance = "HOL-1-IX-I1"
 $hcxServer = "hcx-connect-01.vcf.sddc.lab"
 $user = "administrator@vsphere.local"
-$password = "VMware123!"
+$password = "*****"
 
 $maxConfigAttempts = 2
 $n = 0
