@@ -1,6 +1,6 @@
 Write-Host "1. Import Module & Connect to vCenter" 
 Import-Module VMware.VimAutomation.Vpc 
-Connect-VIServer -Server vc-wld01-a.site-a.vcf.lab -Protocol https -User administrator@wld.sso | Out-Null 
+Connect-VIServer -Server vc-wld01-a.site-a.vcf.lab -Protocol https | Out-Null 
 
 Write-Host "2a. Create Corp VPC" 
 New-Vpc -Name Corp-VPC | Out-Null 
