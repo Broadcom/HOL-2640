@@ -1,5 +1,5 @@
 # --- 1. CONFIGURATION ---
-$nsxManager = "YOUR_NSX_IP"
+$nsxManager = "10.1.1.20"
 $user       = "admin"
 $credsPath  = "/home/holuser/creds.txt"
 
