@@ -6,3 +6,4 @@
 
 vPodPW=$(</home/holuser/creds.txt) 
 sshpass -p $vPodPW scp /vpodrepo/2026-labs/2640/lab-startup/DeployVPC.ps1 holuser@10.1.10.130:/home/holuser/labfiles/hol-2640-02/
+sshpass -p $vPodPW scp /vpodrepo/2026-labs/2640/lab-startup/Disconnect-TGW.ps1 holuser@10.1.10.130:/home/holuser/labfiles/hol-2640-02/
