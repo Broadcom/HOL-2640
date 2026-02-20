@@ -6,6 +6,6 @@
 
 vPodPW=$(</home/holuser/creds.txt) 
 #Script to build VPC environment for Lab2 Module1
-sshpass -p $vPodPW scp /vpodrepo/2026-labs/2640/lab-startup/DeployVPC.ps1 holuser@10.1.10.130:/home/holuser/labfiles/hol-2640-02/
+sshpass -p $vPodPW scp /vpodrepo/2026-labs/2640/lab-startup/DeployVPC.ps1 holuser@10.1.10.130:/home/holuser/labfiles/hol-2640-02/DeployVPC.ps1
 #Script to remove Distributed Connectivity configured in Lab2 Module2 in preparation for Module3 Centralized Connectivity.
-sshpass -p $vPodPW scp /vpodrepo/2026-labs/2640/lab-startup/Disconnect-TGW.ps1 holuser@10.1.10.130:/home/holuser/labfiles/hol-2640-02/
+sshpass -p $vPodPW scp /vpodrepo/2026-labs/2640/lab-startup/Disconnect-TGW.ps1 holuser@10.1.10.130:/home/holuser/labfiles/hol-2640-02/Disconnect-TGW.ps1
