@@ -1,16 +1,13 @@
 
 * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - *
-*                                     HOL-2640 POD                              *
+*                          HOL-2640-xx NSX Networking                           *
 * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - * - *
 
-HOL-2540-01 NSX Fundamentals
-	This lab focuses on getting started with the NSX Networking platform within VMware Cloud Foundation (VCF). 
+HOL-2640-01 Simplified Application Networing with NSX VPC
+	Streamline application networking with VMware NSX. Create and manage VPCs from vCenter, configure subnets and NAT, and gain hands-on experience managing network and security policies efficiently.
 
-HOL 2540-02 NSX Advanced Networking
-	This lab focuses on advanced features within NSX Networking.  We review configuring advanced Edge and BGP deployments along with NSX VPN.  We have a module that focuses on configuring multi tenancy with NSX Projects and Virtual Private Clouds (VPC). 
-
-HOL-2540-03 VMware HCX - Getting Started With Cross-Cloud Mobility
-	Using this Dual Site VCF Pod we will show how to migrate workloads using various HCX methods.
+HOL-2640-03 Multi-Tenant Networking with NSX
+	Learn to configure multi-tenancy and VPCs in VMware NSX. This lab focuses on creating projects, assigning roles, and setting up network isolation using Transit Gateways, simplifying network management within VMware Cloud Foundation.
 
 
 
