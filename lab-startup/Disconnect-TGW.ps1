@@ -23,7 +23,7 @@ else {
 }
 
 # --- 3. PREPARE AUTH ---
-# Convert to UTF8 bytes (standard for NSX 9) and encode to Base64
+# Unified to UTF8 for consistent Base64 generation
 $pair = "${user}:${passwordPlain}"
 $bytes = [System.Text.Encoding]::UTF8.GetBytes($pair)
 $base64 = [Convert]::ToBase64String($bytes)
@@ -33,18 +33,12 @@ $authHeader = @{
     "Content-Type"  = "application/json"
 }
 
-# Create Auth Header using the retrieved password
-$authHeader = @{
-    "Authorization" = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${user}:${passwordPlain}"))
-    "Content-Type"  = "application/json"
-}
-
-# --- 4. EXECUTION ---
-$baseUrl = "https://$nsxManager/policy/api/v1/orgs/default/projects/default/transit-gateways/default/attachments"
+# --- 4. EXECUTION: DISCONNECT TGW ATTACHMENTS ---
+$tgwBaseUrl = "https://$nsxManager/policy/api/v1/orgs/default/projects/default/transit-gateways/default/attachments"
 
 try {
-    Write-Host "Connecting to NSX Manager..." -ForegroundColor Cyan
-    $response = Invoke-RestMethod -Uri $baseUrl -Method Get -Headers $authHeader -SkipCertificateCheck -NoProxy
+    Write-Host "--- Task 1: Disconnecting TGW Attachments ---" -ForegroundColor Cyan
+    $response = Invoke-RestMethod -Uri $tgwBaseUrl -Method Get -Headers $authHeader -SkipCertificateCheck -NoProxy
     
     if ($response.results.Count -eq 0) {
         Write-Host "No active attachments found to disconnect from TGW." -ForegroundColor Yellow
@@ -53,18 +47,68 @@ try {
         foreach ($attachment in $response.results) {
             $id = $attachment.id
             $name = $attachment.display_name
-            
             Write-Host "Disconnecting: $name (ID: $id) from TGW" -ForegroundColor White
-            $deleteUrl = "$baseUrl/$id"
-            Invoke-RestMethod -Uri $deleteUrl -Method Delete -Headers $authHeader -SkipCertificateCheck -NoProxy
+            Invoke-RestMethod -Uri "$tgwBaseUrl/$id" -Method Delete -Headers $authHeader -SkipCertificateCheck -NoProxy
             Write-Host "Successfully removed $name." -ForegroundColor Green
         }
     }
 }
 catch {
-    Write-Host "`nERROR: API Call failed." -ForegroundColor Red
-    Write-Host "Check the credentials in $credsPath and ensure NSX Manager is reachable." -ForegroundColor Gray
+    Write-Host "ERROR: TGW Attachment disconnection failed: $($_.Exception.Message)" -ForegroundColor Red
 }
 
-Write-Host "`nTask Complete." -ForegroundColor White
+# --- 5. ENHANCEMENT: CLEAR VPC CONNECTIVITY PROFILE BLOCKS (WITH SAFETY CHECK) ---
+$vpcProfileUrl = "https://$nsxManager/policy/api/v1/orgs/default/projects/default/vpc-connectivity-profiles/default"
+
+try {
+    Write-Host "`n--- Task 2: Clearing VPC Connectivity Profile IP Blocks ---" -ForegroundColor Cyan
+    
+    # SAFETY CHECK: Verify the profile exists before patching
+    Write-Host "Checking for VPC connectivity profile existence..." -ForegroundColor Gray
+    $checkProfile = Invoke-RestMethod -Uri $vpcProfileUrl -Method Get -Headers $authHeader -SkipCertificateCheck -NoProxy
+    
+    if ($null -ne $checkProfile) {
+        $vpcBody = @{
+            "transit_gateway_path"  = "/orgs/default/projects/default/transit-gateways/default"
+            "external_ip_blocks"    = @()
+            "private_tgw_ip_blocks" = @()
+        } | ConvertTo-Json
+
+        Write-Host "Profile found. Patching to clear IP blocks..." -ForegroundColor White
+        Invoke-RestMethod -Uri $vpcProfileUrl -Method Patch -Headers $authHeader -Body $vpcBody -SkipCertificateCheck -NoProxy
+        Write-Host "Successfully cleared IP blocks." -ForegroundColor Green
+    }
+}
+catch {
+    if ($_.Exception.Response.StatusCode.value__ -eq 404) {
+        Write-Host "SKIPPING: VPC connectivity profile 'default' was not found." -ForegroundColor Yellow
+    } else {
+        Write-Host "ERROR: Failed to update VPC connectivity profile: $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+
+# --- 6. ENHANCEMENT: REMOVE DISTRIBUTED VLAN CONNECTIONS ---
+$vlanConnUrl = "https://$nsxManager/policy/api/v1/infra/distributed-vlan-connections"
+
+try {
+    Write-Host "`n--- Task 3: Removing Distributed VLAN Connections ---" -ForegroundColor Cyan
+    $vlanResponse = Invoke-RestMethod -Uri $vlanConnUrl -Method Get -Headers $authHeader -SkipCertificateCheck -NoProxy
+
+    if ($vlanResponse.results.Count -eq 0) {
+        Write-Host "No Distributed VLAN connections found." -ForegroundColor Yellow
+    }
+    else {
+        foreach ($vlanConn in $vlanResponse.results) {
+            $vlanId = $vlanConn.id
+            Write-Host "Deleting VLAN Connection: $vlanId..." -ForegroundColor White
+            Invoke-RestMethod -Uri "$vlanConnUrl/$vlanId" -Method Delete -Headers $authHeader -SkipCertificateCheck -NoProxy
+            Write-Host "Successfully deleted." -ForegroundColor Green
+        }
+    }
+}
+catch {
+    Write-Host "ERROR: Failed to remove Distributed VLAN connections: $($_.Exception.Message)" -ForegroundColor Red
+}
+
+Write-Host "`nAll Tasks Complete." -ForegroundColor White
 Read-Host -Prompt "Press Enter to close"
