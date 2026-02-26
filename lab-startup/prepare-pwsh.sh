@@ -4,11 +4,6 @@
 #The PW variable requires the file listed to be present as it is on the manager VM.
 #This script will not work on the LMC
 
-#Accounting for Git problems in base template
-rm -f /vpodrepo/2026-labs/2640/.git/index.lock
-git stash
-git pull --force
-
 #Copy files from Git repo on Manager to be used on Console in HOL environment
 vPodPW=$(</home/holuser/creds.txt) 
 #Script to build VPC environment for Lab2 Module1
