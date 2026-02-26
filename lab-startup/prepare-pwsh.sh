@@ -5,7 +5,7 @@
 #This script will not work on the LMC
 
 #Accounting for Git problems in base template
-rm -f .git/index.lock
+rm -f /vpodrepo/2026-labs/2640/.git/index.lock
 git stash
 git pull --force
 
